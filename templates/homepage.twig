@@ -1,0 +1,84 @@
+{% extends 'layout.twig' %}
+
+{% import 'macros.twig' as myMacros %}
+
+{#{% block title %}Title Homepage{% endblock %}#}
+{% block title 'Start looking fly ' ~pageData.title  %}
+
+{% block body %}
+    {#
+        Start server with php 7.x (non 8.x)
+            $ D:\Program_Files\PHP\php.exe -S localhost:8000
+        Go to http://localhost:8000/index.php
+
+    #}
+
+    {# ------------------------ DEBUG ------------------------ #}
+    {#    {{ dump(saleEnds) }}#}
+    {#    {{ dump() }}#}
+
+
+
+    <div class="hero-unit">
+        <h1>{{ pageData.title }}</h1>
+        {# ------------------------ ESCAPE HTML (par défaut)------------------------ #}
+        <p>
+            {{ pageData.summary | raw }} {#do not escape#}
+        </p>
+        {# ------------------------ LES DATES ------------------------ #}
+        Sale ends {{ 'tomorrow noon'|date('D M jS ga') }}
+        <br>
+        Sale ends {{ saleEnds |date('D M jS ga') }}
+        <br>
+        Annee : {{ 'now'|date('Y') }}
+    </div>
+
+    {# ------------------------ INCLUDE OTHER TEMPLATES ------------------------ #}
+    {{ include('_banner.twig', { 'backgroundColor' : 'violet' }) }}
+
+    {# ------------------------ ARRAYS ------------------------ #}
+    {{ products.0.name }}
+    {#{{ products[0] }}#}
+
+
+    {# Utiliser une fonction custom #}
+    <h1 class="text-info">Normal products</h1>
+    <div class="row">
+        {# Si le macro est dans la même page #}
+        {# {{ _self.printProducts(products, 'Pas de produits disponible.') }} #}
+        {{ myMacros.printProducts(products, 'Pas de produits disponible.') }}
+    </div>
+
+    <h1 class="text-info"> Featured Products</h1>
+    <div class="row">
+        {# Si le macro est dans la même page #}
+        {# {{ _self.printProducts(featuredProducts, 'Pas de produits disponible.') }} #}
+        {{ myMacros.printProducts(featuredProducts, 'Pas de produits disponible.') }}
+    </div>
+
+
+    {#    {% if products|length == 0 %}#}
+    {% if products is empty %}
+       <div class="row">
+           <div class="alert alert-error span12">
+               Pas de produits disponible.
+           </div>
+       </div>
+    {% else %}
+        <div class="row">
+            <div class="alert alert-error span12">
+                Des produits dispo.
+            </div>
+        </div>
+    {% endif %}
+
+    {% if products|length is even %}
+    <div class="row">
+        <div class="alert alert-error span12">
+            Il y a un nombre pair de produits
+        </div>
+    </div>
+    {% endif %}
+
+
+{% endblock %}

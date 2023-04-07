@@ -1,0 +1,23 @@
+{#{% if backgroundColor is defined %}#}
+{#    {% set backgroundColor = backgroundColor %}#}
+{#{% else %}#}
+{#    {% set backgroundColor = 'lightblue' %}#}
+{#{% endif %}#}
+
+{# OR #}
+
+{#{% if backgroundColor is not defined %}#}
+{#    {% set backgroundColor = 'lightblue' %}#}
+{#{% endif %}#}
+{#
+    {{ backgroundColor is defined ? backgroundColor : 'lightblue'  }}
+    {{ backgroundColor|default('lightblue') }}
+#}
+<div class="well" style="background-color: {{ backgroundColor|default('lightblue') }}">
+    <h3>Save some krill!</h3>
+    <p>
+        Sale in summer suits all this weekend! <br>
+        Variable from index.php
+        {{ pageData.title }}
+    </p>
+</div>

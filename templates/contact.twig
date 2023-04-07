@@ -1,0 +1,8 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>{{ pageData.title }}</h1>
+
+    {# ------------------------ INCLUDE OTHER TEMPLATES ------------------------ #}
+    {{ include('_banner.twig') }}
+{% endblock %}
